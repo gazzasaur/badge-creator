@@ -75,8 +75,8 @@ def parse_args(args):
         "-c",
         "--label-background",
         dest="label_background",
-        help="set the background color of the banner label in RGB hex format (default: 333333)",
-        default='333333',
+        help="set the background color of the banner label in RGB hex format (default: 444444)",
+        default='444444',
         action="store",
     )
     parser.add_argument(

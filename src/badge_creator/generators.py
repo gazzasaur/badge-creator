@@ -15,7 +15,7 @@ class SimpleGenerator:
     def __init__(self):
         pass
 
-    def generate(self, label, text, output, label_background=RgbColor(0x33, 0x33, 0x33), text_background=RgbColor(0x33, 0x66, 0xFF), fade_factor=0.20, font=PIL.ImageFont.load_default()):
+    def generate(self, label, text, output, label_background=RgbColor(0x44, 0x44, 0x44), text_background=RgbColor(0x33, 0x66, 0xFF), fade_factor=0.20, font=PIL.ImageFont.load_default()):
         """
         Generates a simple gradient style badge and writes the output in PNG format.
 
