@@ -21,7 +21,7 @@ def generate(command_line_args):
         'label_background': RgbColor.parse_rgb_color(command_line_args.label_background),
         'text_background': RgbColor.parse_rgb_color(command_line_args.text_background)
     }
-    if hasattr(command_line_args, 'font'):
+    if hasattr(command_line_args, 'font') and command_line_args.font:
         kwargs['font'] = PIL.ImageFont.truetype(command_line_args.font, command_line_args.font_size)
 
     _logger.debug("Generating simple badge {}: {}".format(command_line_args.label, command_line_args.text))

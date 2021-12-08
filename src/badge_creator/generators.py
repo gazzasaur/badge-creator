@@ -35,8 +35,8 @@ class SimpleGenerator:
         label_width = font.getmask(label).getbbox()[2];
         value_width = font.getmask(text).getbbox()[2];
 
-        badge_padding = text_height // 2
-        badge_height = 2*badge_padding + text_height
+        badge_padding = text_height // 4
+        badge_height = badge_padding + text_height
         badge_width = label_width + value_width + 4*badge_padding;
         image = PIL.Image.new("RGBA", (badge_width, badge_height))
 
@@ -48,8 +48,8 @@ class SimpleGenerator:
 
     def generate_shadow_text(self, image, text, location, font, padding):
         drawing = PIL.ImageDraw.Draw(image)
-        drawing.text((location + 1, padding + 1), text, fill="black", font=font)
-        drawing.text((location, padding), text, fill="white", font=font)
+        drawing.text((location + 1, padding // 2 + 1), text, fill="black", font=font)
+        drawing.text((location, padding // 2), text, fill="white", font=font)
 
     def generate_background(self, image, label_background, text_background, label_width, padding, fade_factor):
         drawing = PIL.ImageDraw.Draw(image)
@@ -70,8 +70,8 @@ class SimpleGenerator:
                     drawing.point((x, y), fill="#{:02X}{:02X}{:02X}".format(stage_color.red, stage_color.green, stage_color.blue))
 
     def calculate_text_height(self, font):
-        text_height = font.getmask('M').getbbox()[3]
+        text_height = font.getmask('My').getbbox()[3]
         if hasattr(font, 'getmetrics'):
             ascent, descent = font.getmetrics()
             text_height += descent
-        return text_height
+        return text_height + 1
