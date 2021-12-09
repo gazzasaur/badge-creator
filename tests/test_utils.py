@@ -33,6 +33,75 @@ class TestRgbColor(unittest.TestCase):
         except ValueError as e:
             self.assertEqual(e.__str__(), "Color component red must be and int between 0 and 255 inclusive but was 128.0 of type <class 'float'>")
 
+    def test_multiply(self):
+        subject = badge_creator.utils.RgbColor(3, 5, 7).multiply(11)
+        self.assertEqual(subject.red, 33)
+        self.assertEqual(subject.green, 55)
+        self.assertEqual(subject.blue, 77)
+
+        subject = badge_creator.utils.RgbColor(3, 5, 7).multiply(0.5)
+        self.assertEqual(subject.red, 2)
+        self.assertEqual(subject.green, 3)
+        self.assertEqual(subject.blue, 4)
+
+    def test_multiply_clamped(self):
+        subject = badge_creator.utils.RgbColor(3, 5, 7).multiply(50)
+        self.assertEqual(subject.red, 150)
+        self.assertEqual(subject.green, 250)
+        self.assertEqual(subject.blue, 255)
+
+        subject = badge_creator.utils.RgbColor(9, 7, 5).multiply(50)
+        self.assertEqual(subject.red, 255)
+        self.assertEqual(subject.green, 255)
+        self.assertEqual(subject.blue, 250)
+
+        subject = badge_creator.utils.RgbColor(9, 7, 5).multiply(-1)
+        self.assertEqual(subject.red, 0)
+        self.assertEqual(subject.green, 0)
+        self.assertEqual(subject.blue, 0)
+
+    def test_multiply_invalidType(self):
+        try:
+            badge_creator.utils.RgbColor(3, 5, 7).multiply('hello')
+        except ValueError as e:
+            self.assertEqual(e.__str__(), "Can only multiply a color by a number but hello of type <class 'str'> was used.")
+
+    def test_add(self):
+        subject = badge_creator.utils.RgbColor(3, 5, 7).add(badge_creator.utils.RgbColor(4, 6, 8))
+        self.assertEqual(subject.red, 7)
+        self.assertEqual(subject.green, 11)
+        self.assertEqual(subject.blue, 15)
+
+    def test_add_clamp(self):
+        subject = badge_creator.utils.RgbColor(254, 5, 7).add(badge_creator.utils.RgbColor(4, 6, 251))
+        self.assertEqual(subject.red, 255)
+        self.assertEqual(subject.green, 11)
+        self.assertEqual(subject.blue, 255)
+
+    def test_add_invalidType(self):
+        try:
+            badge_creator.utils.RgbColor(3, 5, 7).add(5)
+        except ValueError as e:
+            self.assertEqual(e.__str__(), "Can only add a color from another color but 5 of type <class 'int'> was used.")
+
+    def test_substract(self):
+        subject = badge_creator.utils.RgbColor(4, 6, 8).subtract(badge_creator.utils.RgbColor(3, 4, 5))
+        self.assertEqual(subject.red, 1)
+        self.assertEqual(subject.green, 2)
+        self.assertEqual(subject.blue, 3)
+
+    def test_substract_clamp(self):
+        subject = badge_creator.utils.RgbColor(3, 4, 5).subtract(badge_creator.utils.RgbColor(4, 6, 8))
+        self.assertEqual(subject.red, 0)
+        self.assertEqual(subject.green, 0)
+        self.assertEqual(subject.blue, 0)
+
+    def test_subtract_invalidType(self):
+        try:
+            badge_creator.utils.RgbColor(3, 5, 7).subtract(5)
+        except ValueError as e:
+            self.assertEqual(e.__str__(), "Can only subtract a color from another color but 5 of type <class 'int'> was used.")
+
     def test_parse(self):
         subject = badge_creator.utils.RgbColor.parse_rgb_color('#FEDCBA')
         self.assertEqual(subject.red, 0xFE)

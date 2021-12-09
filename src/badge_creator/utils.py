@@ -14,18 +14,18 @@ class RgbColor:
 
     def multiply(self, value):
         if (not isinstance(value, numbers.Number)):
-            raise ValueError("Can only multiply a color by a number but {} of type '{}' was used.".format(value, type(value)))
+            raise ValueError("Can only multiply a color by a number but {} of type {} was used.".format(value, type(value)))
 
         result = RgbColor(0, 0, 0)
         for component in ['red', 'green', 'blue']:
-            setattr(result, component, getattr(self, component) * value)
+            setattr(result, component, getattr(self, component) * value + 0.5)
         result.clamp()
 
         return result
 
     def add(self, value):
         if (not isinstance(value, RgbColor)):
-            raise ValueError("Can only subtract a color from another color but {} of type '{}' was used.".format(value, type(value)))
+            raise ValueError("Can only add a color from another color but {} of type {} was used.".format(value, type(value)))
 
         result = RgbColor(0, 0, 0)
         for component in ['red', 'green', 'blue']:
@@ -36,7 +36,7 @@ class RgbColor:
 
     def subtract(self, value):
         if (not isinstance(value, RgbColor)):
-            raise ValueError("Can only subtract a color from another color but {} of type '{}' was used.".format(value, type(value)))
+            raise ValueError("Can only subtract a color from another color but {} of type {} was used.".format(value, type(value)))
 
         result = RgbColor(0, 0, 0)
         for component in ['red', 'green', 'blue']:
