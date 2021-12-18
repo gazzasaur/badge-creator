@@ -1,6 +1,17 @@
 # badge-creator
 A quick and simple python library and cli to create project badges
 
+### Build
+```
+# Optional but recommended.  Setup a virtual environment first.
+tox
+```
+
+### Install
+```
+python3 -m pip install .tox/dist/badge-creator-*.tar.gz
+```
+
 # Usage
 ### Example 1
 The command below uses the default background color and will generate the [![license](/samples/license.png?raw=true "License")](/LICENSE?raw=true) badge as a link to the license
